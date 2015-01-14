@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/aop
+		    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		    http://www.springframework.org/schema/tx
+		    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+	default-lazy-init="true">
+	
+    <context:component-scan base-package="com.hp.security.jauth.core" />
+	<context:annotation-config />
+	
+	<bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath*:/jauth.properties" />
+    </bean>
+	
+	<import resource="classpath*:/jauth-data-source.xml"/>
+
+	<!-- define the SqlSessionFactory -->
+    <bean id="jauthSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="jauthDataSource" />
+<!--         <property name="typeAliasesPackage" value="com.hp.security.jauth.core.model" /> -->
+        <property name="configLocation" value="classpath:jauth-mybatis-configuration.xml"></property>
+        <property name="mapperLocations">
+        	<list>
+        		<value>classpath*:com/hp/security/jauth/*/dao/${databaseType}/*.xml</value>
+        	</list>
+        </property>
+    </bean>
+    
+<!--     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> -->
+<!-- 		<property name="basePackage" value="com.hp.security.jauth.core.dao"> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+	<!-- bean -->
+	<bean id="jauthACLDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.ACLDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthAssociateUserDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.AssociateUserDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthConfigDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.ConfigDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthApplicationDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.ApplicationDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthControllerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.ControllerDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthGroupDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.GroupDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthGroupRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.GroupRoleDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthOperationDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.OperationDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.RoleDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthSystemDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.SystemDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthUserGroupDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.UserGroupDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<bean id="jauthLogDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hp.security.jauth.core.dao.AuthLogDao" />
+		<property name="sqlSessionFactory" ref="jauthSqlSessionFactory" />
+	</bean>
+	
+	<!-- Transaction -->
+    <bean id="jauthTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="jauthDataSource" />
+    </bean>
+
+    <tx:advice id="jauthTxAdvice" transaction-manager="jauthTransactionManager">
+        <tx:attributes>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED" rollback-for="java.lang.RuntimeException" />
+        </tx:attributes>
+    </tx:advice>
+    
+    <aop:config>
+        <aop:pointcut id="jauthInterceptorPointCuts"
+            expression="execution(* com.hp.security.jauth.*.service.*.*(..))" />
+        <aop:advisor advice-ref="jauthTxAdvice" pointcut-ref="jauthInterceptorPointCuts" />        
+    </aop:config>
+	
+</beans>

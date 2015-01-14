@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.security.jauth.core.dao.ControllerDao">
+
+	<cache eviction="LRU" flushInterval="600000" readOnly="true" size="30"/>
+
+	<sql id="fullColumns">
+		CONTROLLER_ID,
+		MAPPING,
+		MODULE_NAME,
+		APP_ID,
+		BUSINESS,
+		ACTIVATE
+	</sql>
+
+	<resultMap type="com.hp.security.jauth.core.model.Controller" id="ControllerMap" >
+		<result property="controllerId" column="CONTROLLER_ID" />
+		<result property="mapping" column="MAPPING" />
+		<result property="moduleName" column="MODULE_NAME" />
+		<result property="business" column="BUSINESS" />
+		<result property="activate" column="ACTIVATE" />
+		<association property="application" javaType="com.hp.security.jauth.core.model.Application" column="APP_ID" select="com.hp.security.jauth.core.dao.ApplicationDao.findById"></association>
+		<collection property="operations" ofType="com.hp.security.jauth.core.model.Operation" column="CONTROLLER_ID" select="com.hp.security.jauth.core.dao.OperationDao.findByControllerId"></collection>
+	</resultMap>
+	
+	<select id="findById" parameterType="long" resultMap="ControllerMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_CTRLR
+		WHERE
+			CONTROLLER_ID = #{value}
+	</select>
+	
+	<select id="findByMapping" parameterType="string" resultMap="ControllerMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_CTRLR
+		WHERE
+			MAPPING = #{value}
+	</select>
+	
+	<select id="findAll" resultMap="ControllerMap">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_CTRLR
+		ORDER BY
+			CONTROLLER_ID
+	</select>
+	
+	<insert id="save" parameterType="com.hp.security.jauth.core.model.Controller">
+		<selectKey keyProperty="controllerId" resultType="java.lang.Long" order="BEFORE">
+			SELECT ATH_CTRLR_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO
+			ATH_CTRLR
+			(<include refid="fullColumns" />)
+		VALUES(
+				#{controllerId, jdbcType=NUMERIC},
+				#{mapping, jdbcType=VARCHAR},
+				#{moduleName, jdbcType=VARCHAR},
+				#{application.applicationId, jdbcType=NUMERIC},
+				#{business, jdbcType=VARCHAR},
+				#{activate, jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<update id="update" parameterType="com.hp.security.jauth.core.model.Controller">
+	    UPDATE
+	    	ATH_CTRLR
+	    SET
+			MAPPING = #{mapping, jdbcType=VARCHAR},	    	
+	    	MODULE_NAME = #{moduleName, jdbcType=VARCHAR},
+	    	APP_ID = #{application.applicationId, jdbcType=NUMERIC},
+	    	BUSINESS = #{business, jdbcType=VARCHAR},
+	    	ACTIVATE = #{activate, jdbcType=VARCHAR}
+	    WHERE
+	    	CONTROLLER_ID = #{controllerId, jdbcType=NUMERIC}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+	    DELETE FROM
+	    	ATH_CTRLR
+	    WHERE
+	    	CONTROLLER_ID = #{value}
+	</delete>
+	
+</mapper>

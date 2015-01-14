@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>Authentication & Authorization</title>
+		<script type="text/javascript" src="getResource?path=js/jauth.js"></script>
+		<link type="text/css" rel="stylesheet" href="getResource?path=css/jauth.css" />
+	</head>
+	<body>
+		<div id="box">
+			<div id="head">
+				<div id="title">Authentication & Authorization</div>
+				<div id="logo">
+					<img align="left" src="getResource?path=image/logo.png">
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div id="main">
+				<div id="menu">
+					<ul>
+						<li><a href="user/view" target="mainFrame">User</a></li>
+					</ul>
+					<ul>
+						<li><a href="group/view" target="mainFrame">Group</a></li>
+					</ul>
+					<ul>
+						<li><a href="role/view" target="mainFrame">Role</a></li>
+					</ul>
+					<ul>
+						<li><a href="controller/view" target="mainFrame">Controller</a></li>
+					</ul>
+					<ul>
+						<li><a href="application/view" target="mainFrame">Application</a></li>
+					</ul>
+					<ul>
+						<li><a href="config/view" target="mainFrame">Config</a></li>
+					</ul>
+					<ul>
+						<li><a href="report/pieWithModule" target="mainFrame">Report</a></li>
+					</ul>
+				</div>
+				<div id="content">
+					<iframe src="" id="mainFrame" name="mainFrame" width="770" height="450" frameborder="0"></iframe>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div id="foot" class="linkStyle">
+				<a href="mailto:yiqingh@hp.com">Feedback</a> | <a href="#">HP Restricted</a>
+				<p>&copy; Copyright 2013 Hewlett-Packard Development Company, L.P.</p>
+			</div>
+		</div>
+	</body>
+</html>

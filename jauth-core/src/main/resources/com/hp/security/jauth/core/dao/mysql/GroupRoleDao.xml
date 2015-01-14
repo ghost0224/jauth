@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.security.jauth.core.dao.GroupRoleDao">
+
+	<cache eviction="LRU" flushInterval="600000" readOnly="true" size="30"/>
+
+	<sql id="fullColumns">
+		GROUP_ID,
+	    ROLE_ID,
+		PRIORITY
+	</sql>
+	
+	<sql id="fullColumnsWithAlias">
+		GR.GROUP_ID AS GR_GROUP_ID,
+	    GR.ROLE_ID AS GR_ROLE_ID,
+		GR.PRIORITY AS GR_PRIORITY
+	</sql>
+
+	<resultMap type="com.hp.security.jauth.core.model.GroupRole" id="GroupRoleMap" >
+		<result property="priority" column="GR_PRIORITY" />
+		<association property="role" column="GR_ROLE_ID" javaType="com.hp.security.jauth.core.model.Role" select="com.hp.security.jauth.core.dao.RoleDao.findById"></association>
+		<association property="group" column="GR_GROUP_ID" javaType="com.hp.security.jauth.core.model.Group" select="com.hp.security.jauth.core.dao.GroupDao.findById"></association>
+	</resultMap>
+	
+	<select id="findByRoleId" resultMap="GroupRoleMap" useCache="true">
+		SELECT
+			<include refid="fullColumnsWithAlias" />
+		FROM
+			ATH_ROL R,
+			ATH_GRP_ROL GR
+		WHERE
+			R.ROLE_ID = GR.ROLE_ID
+		AND GR.ROLE_ID = #{value}
+		ORDER BY GR_PRIORITY DESC
+	</select>
+	
+	<select id="findByGroupId" resultMap="GroupRoleMap" useCache="true">
+		SELECT
+			<include refid="fullColumnsWithAlias" />
+		FROM
+			ATH_ROL R,
+			ATH_GRP_ROL GR
+		WHERE
+			R.ROLE_ID = GR.ROLE_ID
+		AND GR.GROUP_ID = #{value}
+		ORDER BY GR_PRIORITY DESC
+	</select>
+	
+	<insert id="save" parameterType="com.hp.security.jauth.core.model.GroupRole">
+		INSERT INTO
+			ATH_GRP_ROL
+			(<include refid="fullColumns" />)
+		VALUES(
+				#{group.groupId, jdbcType=NUMERIC},
+				#{role.roleId, jdbcType=NUMERIC},
+				#{priority, jdbcType=NUMERIC}
+			)
+	</insert>
+	
+	<delete id="deleteByGroupId" parameterType="long">
+		DELETE FROM
+			ATH_GRP_ROL
+		WHERE
+			GROUP_ID = #{value}
+	</delete>
+	
+	<delete id="deleteByRoleId" parameterType="long">
+		DELETE FROM
+			ATH_GRP_ROL
+		WHERE
+			ROLE_ID = #{value}
+	</delete>
+	
+</mapper>

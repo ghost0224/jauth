@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.security.jauth.core.dao.GroupDao">
+
+	<cache eviction="LRU" flushInterval="600000" readOnly="true" size="30"/>
+
+	<sql id="fullColumns">
+		GROUP_ID,
+		NAME
+	</sql>
+
+	<resultMap type="com.hp.security.jauth.core.model.Group" id="GroupMap" >
+		<result property="groupId" column="GROUP_ID" />
+		<result property="name" column="NAME" />
+		<collection property="groupRoles" ofType="com.hp.security.jauth.core.model.GroupRole" column="GROUP_ID" select="com.hp.security.jauth.core.dao.GroupRoleDao.findByGroupId"></collection>
+		<collection property="userGroups" ofType="com.hp.security.jauth.core.model.UserGroup" column="GROUP_ID" select="com.hp.security.jauth.core.dao.UserGroupDao.findByGroupId"></collection>
+	</resultMap>
+	
+	<select id="findById" parameterType="long" resultMap="GroupMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_GRP
+		WHERE
+			GROUP_ID = #{value}
+	</select>
+	
+	<select id="findAll" resultMap="GroupMap">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_GRP
+		ORDER BY
+			GROUP_ID
+	</select>
+	
+	<insert id="save" parameterType="com.hp.security.jauth.core.model.Group">
+		<selectKey keyProperty="groupId" resultType="java.lang.Long" order="BEFORE">
+			SELECT ATH_GRP_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO
+			ATH_GRP
+			(<include refid="fullColumns" />)
+		VALUES(
+				#{groupId, jdbcType=NUMERIC},
+				#{name, jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<update id="update" parameterType="com.hp.security.jauth.core.model.Group">
+		UPDATE
+			ATH_GRP
+		SET
+			NAME = #{name, jdbcType=VARCHAR}
+		WHERE
+			GROUP_ID = #{groupId, jdbcType=NUMERIC}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+	    DELETE FROM
+	    	ATH_GRP
+	    WHERE
+			GROUP_ID = #{groupId, jdbcType=NUMERIC}
+	</delete>
+	
+</mapper>

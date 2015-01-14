@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.security.jauth.core.dao.ConfigDao">
+    
+    <cache eviction="LRU" flushInterval="600000" readOnly="true" size="30"/>
+
+	<sql id="fullColumns">
+		`KEY`,
+		`VALUE`
+	</sql>
+
+	<resultMap type="com.hp.security.jauth.core.model.Config" id="ConfigMap">
+		<result property="key" column="KEY" />
+		<result property="value" column="VALUE" />
+	</resultMap>
+	
+	<select id="findByKey" parameterType="string" resultMap="ConfigMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_CNFG
+		WHERE
+			`KEY` = #{value}
+	</select>
+	
+	<select id="findAll" resultMap="ConfigMap">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_CNFG
+		ORDER BY `KEY`
+	</select>
+	
+	<insert id="save" parameterType="com.hp.security.jauth.core.model.Config">
+		INSERT INTO
+			ATH_CNFG
+			(<include refid="fullColumns" />)
+		VALUES(
+				#{key, jdbcType=VARCHAR},
+				#{value, jdbcType=CLOB}
+			)
+	</insert>
+	
+	<update id="update" parameterType="com.hp.security.jauth.core.model.Config">
+		UPDATE
+			ATH_CNFG
+		SET
+			`VALUE` = #{value, jdbcType=CLOB}
+		WHERE
+			`KEY` = #{key, jdbcType=VARCHAR}
+	</update>
+	
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.security.jauth.core.dao.OperationDao">
+
+	<cache eviction="LRU" flushInterval="600000" readOnly="true" size="30"/>
+
+	<sql id="fullColumns">
+	    CONTROLLER_ID,
+		OPERATION_ID,
+		NAME
+	</sql>
+
+	<resultMap type="com.hp.security.jauth.core.model.Operation" id="OperationMap" >
+		<result property="operationId" column="OPERATION_ID" />
+		<result property="name" column="NAME" />
+		<association property="controller" javaType="com.hp.security.jauth.core.model.Controller" column="CONTROLLER_ID" select="com.hp.security.jauth.core.dao.ControllerDao.findById"></association>
+	</resultMap>
+	
+	<select id="findById" resultMap="OperationMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_OPRN
+		WHERE
+			CONTROLLER_ID = #{controllerId}
+		AND OPERATION_ID = #{operationId}
+	</select>
+	
+	<select id="findByControllerId" parameterType="long" resultMap="OperationMap">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_OPRN
+		WHERE
+			CONTROLLER_ID = #{value}
+		ORDER BY
+			OPERATION_ID
+	</select>
+	
+	<select id="findQuantityByPrincipalId" resultType="int">
+		SELECT MAX(AMOUNT) FROM (
+		    SELECT 
+		    	COUNT(*) AS AMOUNT
+		    FROM 
+		    	ATH_ACSS_CTRL_LST, ATH_OPRN 
+		    WHERE
+		    	ATH_ACSS_CTRL_LST.CONTROLLER_ID = ATH_OPRN.CONTROLLER_ID
+			AND ATH_ACSS_CTRL_LST.PRINCIPAL_ID = #{principalId}
+			AND ATH_ACSS_CTRL_LST.PRINCIPAL_TYPE = #{principalType}
+			GROUP BY
+				ATH_ACSS_CTRL_LST.CONTROLLER_ID) AS AMOUNT
+	</select>
+	
+	<select id="findQuantityByPrincipalIdAndControllerId" resultType="int">
+	    SELECT 
+	    	COUNT(*)
+	    FROM 
+	    	ATH_ACSS_CTRL_LST, ATH_OPRN 
+	    WHERE
+	    	ATH_ACSS_CTRL_LST.CONTROLLER_ID = ATH_OPRN.CONTROLLER_ID
+		AND ATH_ACSS_CTRL_LST.PRINCIPAL_ID = #{principalId}
+		AND ATH_ACSS_CTRL_LST.PRINCIPAL_TYPE = #{principalType}
+		AND ATH_ACSS_CTRL_LST.CONTROLLER_ID = #{controllerId}
+	</select>
+	
+	<insert id="save" parameterType="com.hp.security.jauth.core.model.Operation">
+	    INSERT INTO
+			ATH_OPRN
+			(<include refid="fullColumns" />)
+		VALUES(
+				#{controller.controllerId, jdbcType=NUMERIC},
+				#{operationId, jdbcType=NUMERIC},
+				#{name, jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<update id="update" parameterType="com.hp.security.jauth.core.model.Operation">
+	    UPDATE
+	    	ATH_OPRN
+	    SET
+	    	NAME = #{name, jdbcType=VARCHAR}
+	    WHERE
+	    	CONTROLLER_ID = #{controller.controllerId, jdbcType=NUMERIC}
+	    AND OPERATION_ID = #{operationId, jdbcType=NUMERIC}
+	</update>
+	
+	<delete id="delete">
+	    DELETE FROM
+	    	ATH_OPRN
+	    WHERE
+	    	CONTROLLER_ID = #{controllerId}
+	    AND OPERATION_ID = #{operationId}
+	</delete>
+	
+	<delete id="deleteByControllerId" parameterType="long">
+	    DELETE FROM
+	    	ATH_OPRN
+	    WHERE
+	    	CONTROLLER_ID = #{value}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,34 @@
+/*
+-- Test Data
+-- Date: 2015-01-12 19:49
+*/
+INSERT INTO `ath_app` (`APP_ID`,`MAPPING`,`APP_NAME`) VALUES (1,'jauth-core-example','jauth-core-example');
+INSERT INTO `ath_app` (`APP_ID`,`MAPPING`,`APP_NAME`) VALUES (2,'jauth-soap-example','jauth-soap-example');
+INSERT INTO `ath_app` (`APP_ID`,`MAPPING`,`APP_NAME`) VALUES (3,'jauth-full-example','jauth-full-example');
+INSERT INTO `ath_ctrlr` (`CONTROLLER_ID`,`MAPPING`,`MODULE_NAME`,`BUSINESS`,`APP_ID`,`ACTIVATE`) VALUES (12,'business','full-business','Y',3,'Y');
+INSERT INTO `ath_ctrlr` (`CONTROLLER_ID`,`MAPPING`,`MODULE_NAME`,`BUSINESS`,`APP_ID`,`ACTIVATE`) VALUES (13,'business','core-business','Y',1,'Y');
+INSERT INTO `ath_ctrlr` (`CONTROLLER_ID`,`MAPPING`,`MODULE_NAME`,`BUSINESS`,`APP_ID`,`ACTIVATE`) VALUES (14,'services/businessService','full-services/businessService','Y',3,'Y');
+INSERT INTO `ath_ctrlr` (`CONTROLLER_ID`,`MAPPING`,`MODULE_NAME`,`BUSINESS`,`APP_ID`,`ACTIVATE`) VALUES (15,'services/businessService','soap-services/businessService','Y',2,'Y');
+INSERT INTO `ath_ctrlr` (`CONTROLLER_ID`,`MAPPING`,`MODULE_NAME`,`BUSINESS`,`APP_ID`,`ACTIVATE`) VALUES (16,'index','core-index','Y',1,'Y');
+INSERT INTO `ath_ctrlr` (`CONTROLLER_ID`,`MAPPING`,`MODULE_NAME`,`BUSINESS`,`APP_ID`,`ACTIVATE`) VALUES (18,'index','full-index','Y',3,'Y');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (12,0,'view');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (12,1,'in');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (12,2,'out');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (13,0,'view');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (13,1,'in');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (13,2,'out');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (14,0,'view');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (14,1,'in');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (14,2,'out');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (15,0,'view');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (15,1,'in');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (15,2,'out');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (16,0,'view');
+INSERT INTO `ath_oprn` (`CONTROLLER_ID`,`OPERATION_ID`,`NAME`) VALUES (18,0,'view');
+INSERT INTO `ath_acss_ctrl_lst` (`PRINCIPAL_ID`,`PRINCIPAL_TYPE`,`CONTROLLER_ID`,`ACL_STATE`) VALUES (1,0,12,3);
+INSERT INTO `ath_acss_ctrl_lst` (`PRINCIPAL_ID`,`PRINCIPAL_TYPE`,`CONTROLLER_ID`,`ACL_STATE`) VALUES (1,0,13,3);
+INSERT INTO `ath_acss_ctrl_lst` (`PRINCIPAL_ID`,`PRINCIPAL_TYPE`,`CONTROLLER_ID`,`ACL_STATE`) VALUES (1,0,14,3);
+INSERT INTO `ath_acss_ctrl_lst` (`PRINCIPAL_ID`,`PRINCIPAL_TYPE`,`CONTROLLER_ID`,`ACL_STATE`) VALUES (1,0,15,3);
+INSERT INTO `ath_acss_ctrl_lst` (`PRINCIPAL_ID`,`PRINCIPAL_TYPE`,`CONTROLLER_ID`,`ACL_STATE`) VALUES (1,0,16,1);
+INSERT INTO `ath_acss_ctrl_lst` (`PRINCIPAL_ID`,`PRINCIPAL_TYPE`,`CONTROLLER_ID`,`ACL_STATE`) VALUES (1,0,18,1);
+COMMIT;

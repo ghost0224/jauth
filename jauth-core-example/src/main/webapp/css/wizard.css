@@ -1,0 +1,659 @@
+@CHARSET "UTF-8";
+/*css reset*/
+* {
+	margin: 0;
+	padding: 0;
+	font-family: HP Simplified;
+	color: #767676;
+	font-size: 14px;
+}
+
+ul,li {
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+img {
+	border: 0;
+}
+
+/*common css style*/
+body {
+	background: #E6EBEE;
+}
+
+#wrap {
+	width: 1024px;
+	margin: 0 auto;
+	background-color: #fff;
+	padding-left: 18px;
+	padding-right: 18px;
+}
+
+#header {
+	height: 135px;
+	border-bottom: 1px solid #ccc;
+}
+
+#header h1 {
+	float: left;
+	margin-top: 70px;
+	font-size: 34px;
+	color: #000;
+}
+
+#header h2 {
+	float: right;
+}
+
+#header h2 a {
+	display: block;
+}
+
+#header h2 a img {
+	height: 70;
+	margin: 55px 18px 0 45px;
+}
+
+#wrap h3 {
+	font-size: 20px;
+	color: #000;
+	font-weight: bold;
+	margin-bottom: 15px;
+	float: left;
+}
+
+#wrap h4 {
+	float: right;
+	background: url("../images/homepage.png") no-repeat center left;
+	padding-left: 20px;
+}
+
+#wrap h4 a {
+	display: block;
+	line-height: 12px;
+}
+
+#wrap h4 a:hover {
+	color: #f05332;
+	text-decoration: underline;
+}
+
+.myForm {
+	padding-top: 50px;
+	padding-left: 40px;
+}
+
+/*nav css style*/
+#wrap .nav {
+	float: left;
+	width: 250px;
+	padding-top: 50px;
+}
+
+#wrap ul#Listbar {
+	width: 257px;
+	padding-right: 21px;
+	float: left;
+	height: 100%;
+}
+
+#wrap ul#Listbar li {
+	line-height: 36px;
+	background: url("../images/icon.png") no-repeat center left;
+	padding-left: 19px;
+}
+
+#wrap ul#Listbar li a {
+	display: block;
+	font-weight: bold;
+	width: 240px;
+	padding-left: 4px;
+}
+
+#wrap ul#Listbar li a:hover {
+	background: #0096d6;
+	color: #fff;
+}
+/* generator css style */
+#bdoList {
+	padding-top: 50px;
+	float: left;
+}
+
+fieldset {
+	border: 1px dashed #ccc;
+	padding-left: 15px;
+	width: 652px;
+	margin-bottom: 30px;
+	clear: both;
+}
+
+.Trigger div {
+	margin-left: -76px;
+}
+
+fieldset legend {
+	font-size: 18px;
+	font-weight: bold;
+	color: #000;
+}
+
+fieldset table {
+	margin-left: 70px;
+}
+
+#generatorForm table b {
+	font-size: 18px;
+	font-weight: bold;
+	color: #000;
+	line-height: 40px;
+}
+
+.E_right {
+	text-align: right;
+}
+
+span {
+	color: #f00;
+}
+
+#generatorForm table tr {
+	height: 40px;
+	vertical-align: middle;
+}
+
+#generatorForm table tr td.name input {
+	width: 220px;
+	height: 25px;
+	margin-left: 10px;
+	text-indent: 4px;
+	border: 2px solid #ccc;
+	vertical-align: middle;
+	line-height: 25px;
+}
+
+#generatorForm table tr td.name input:hover {
+	border: 2px solid #5a5a5a;
+}
+
+#generatorForm table tr td.name input:focus {
+	background: #fff7c5;
+}
+
+#generatorForm table tr td.actions,fieldset.Trigger p.last-child font {
+	color: #000;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+#generatorForm table tr td.actions input {
+	vertical-align: middle;
+}
+
+fieldset div {
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+fieldset.Trigger p {
+	margin-left: 100px;
+	height: 30px;
+	line-height: 30px;
+}
+
+input.attributeName,.pattern {
+	width: 200px;
+	border: 2px solid #ccc;
+	height: 25px;
+	text-indent: 4px;
+	line-height: 25px;
+}
+
+input.attributeName:hover,.pattern:hover,fieldset.Trigger textarea:hover
+	{
+	background: #fff7c5;
+}
+
+fieldset.Trigger table {
+	margin-left: 148px;
+}
+
+fieldset.Trigger table td {
+	text-align: right;
+}
+
+fieldset.Trigger table select {
+	margin-left: 12px;
+}
+
+fieldset.Trigger .pattern {
+	width: 199px;
+}
+
+fieldset.Trigger .p1 {
+	margin-left: 137px;
+	margin-top: -10px;
+}
+
+fieldset.Trigger .p1 label {
+	vertical-align: top;
+}
+
+fieldset.Trigger textarea {
+	margin-left: 14px;
+	border: 2px solid #ccc;
+	padding: 4px;
+	width: 469px;
+	height: 50px;
+	margin-top: 10px;
+}
+
+fieldset.Trigger p.last-child {
+	margin-top: 50px;
+	margin-left: 150px;
+}
+/*sql-mananger.css  */
+#wrap #myForm {
+	float: left;
+	width: 660px;
+	border-left: 1px solid #ccc;
+}
+
+#wrap #myForm h3 {
+	font-size: 20px;
+	color: #000;
+	font-weight: bold;
+	margin-bottom: 15px;
+	float: left;
+}
+
+#projects,#versions {
+	height: 26px;
+	line-height: 2px;
+	width: 170px;
+	margin-right: 10px;
+}
+
+#projects:focus,#versions:focus {
+	background: #FFF7C5
+}
+
+input.button {
+	border: 0;
+	background: #0096d6;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 25px;
+	color: #fff;
+	font-weight: bold;
+	border-top-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	cursor: pointer;
+}
+
+input.button:hover {
+	background: #0084bd;
+}
+
+.operation {
+	background: #E6EBEE;
+	border-radius: 6px;
+	margin-left: -15px;
+	width: 200px;
+}
+
+.operation td {
+	line-height: 25px;
+	color: #000;
+	text-align: left !important;
+	padding-left: 10px;
+}
+
+.operation td input {
+	height: 25px;
+}
+
+.clear {
+	clear: both;
+}
+
+/*user_module css style*/
+h5 {
+	color: #000;
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+
+#model table td {
+	line-height: 30px;
+	text-align: right;
+}
+
+#model table td.even {
+	text-align: left;
+}
+
+#model table td.even input {
+	border: 2px solid #ccc;
+	margin-left: 10px;
+	line-height: 24px;
+	height: 24px;
+	width: 188px;
+	text-indent: 2px;
+	vertical-align: middle;
+}
+
+div.but {
+	width: 450px;
+	margin: 18px 0 20px 138px;
+}
+
+div.but input {
+	border: 0;
+	height: 26px;
+	line-height: 26px;
+	padding: 0 15px;
+	background: #0096d6;
+	color: #fff;
+	border-top-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	font-weight: bold;
+	margin-right: 72px;
+	cursor: pointer;
+}
+
+#model table td.even input:hover {
+	border: 2px solid #5a5a5a;
+	color: #000;
+}
+
+#model table td.even select {
+	border: 2px solid #ccc;
+	line-height: 31px;
+	height: 31px;
+	width: 192px;
+	margin-left: 10px;
+}
+
+#model table td input:focus,#model table td select:focus,.model textarea:focus
+	{
+	background: #FFF7C5
+}
+
+#model img {
+	margin-left: 3px;
+}
+/*result css style*/
+.model {
+	width: 200px;
+}
+
+.model textarea {
+	margin-top: 16px;
+	height: 418px;
+	padding: 4px;
+	overflow-x: hidden;
+	border: 2px solid #ccc;
+}
+
+/*button css style*/
+#main {
+	margin: 40px 0 70px 90px;
+}
+
+#main input {
+	border: 0;
+	display: block;
+	float: left;
+	background: #0096d6;
+	padding: 0 10px 0;
+	height: 26px;
+	margin-right: 10px;
+	color: #fff;
+	font-weight: bold;
+	border-top-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	cursor: pointer;
+}
+
+#main input:hover {
+	background: #0084db
+}
+
+#main input#addBtn {
+	margin-left: 60px;
+}
+
+.delete {
+	background: #767676;
+	border: 0;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #fff;
+	font-size: 14px;
+	height: 26px;
+	line-height: 26px;
+	border-top-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	font-weight: bold;
+	cursor: pointer;
+	float: right;
+	margin-top: -21px;
+}
+
+.delete:hover {
+	background: #5a5a5a;
+}
+
+/*index css style  */
+#wrap ul.content {
+	width: 580px;
+	margin: 50px auto 260px auto;
+}
+
+#wrap ul.content li {
+	line-height: 55px;
+}
+
+#wrap ul.content li.open {
+	background: url("../images/folder-open.png") no-repeat center left;
+}
+
+#wrap ul.content li.close {
+	background: url("../images/folder-document.png") no-repeat center left;
+}
+
+#wrap ul.content li a {
+	font-size: 20px;
+	padding-left: 50px;
+	font-weight: bold;
+}
+
+#wrap ul.content li a:hover {
+	color: #f05332;
+	text-decoration: underline;
+}
+
+#wrap table {
+	clear: both;
+}
+
+#footer {
+	border-top: 1px solid #ccc;
+	width: 1024px;
+	text-align: right;
+	clear: both;
+}
+
+#footer a {
+	color: #000;
+}
+
+#footer a:hover {
+	color: #0096D6;
+	text-decoration: underline;
+}
+
+#footer a,#footer span {
+	color: #000;
+	line-height: 30px;
+	border-right: 2px solid #000;
+	margin-right: 10px;
+	padding-right: 10px;
+}
+
+#footer span.last-child {
+	border: 0;
+}
+
+#footer p {
+	line-height: 30px;
+	color: #000;
+}
+
+/*handout css style*/
+#handoutForm {
+	margin-left: 151px;
+	width: 800px;
+}
+
+#handoutForm font {
+	font-size: 16px;
+	line-height: 22px;
+	color: #767676;
+}
+
+#handoutForm #storyName {
+	margin-bottom: 15px;
+	width: 165px;
+	border: 2px solid #ccc;
+	height: 22px;
+	text-indent: 2px;
+	margin-left: 6px;
+}
+
+#handoutForm #storyName:hover {
+	border-color: #000;
+}
+
+#handoutForm #storyName:focus {
+	background: #FFF7C5;
+}
+
+#handoutForm dt {
+	margin-bottom: 10px;
+}
+
+#handoutForm dd {
+	height: 60px;
+}
+
+#handoutForm dd img {
+	float: left;
+	margin-right: 6px;
+}
+
+#handoutForm dd p {
+	line-height: 35px;
+}
+
+#handoutForm b {
+	color: #000;
+}
+
+#handoutForm .new {
+	border: 0;
+	background: #0096D6;
+	height: 26px;
+	padding: 0 10px;
+	border-top-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	color: #fff;
+	font-weight: bold;
+	margin-top: 10px;
+	float: right;
+	margin: 0 500px 20px 0;
+	cursor: pointer;
+}
+
+#handoutForm .new:hover {
+	background: #0084DB;
+}
+
+/*login css style*/
+.header,.footer {
+	margin-left: -18px;
+	width:1060px;
+}
+
+#loginForm .right {
+	float: left;
+	border-right:2px solid #999;
+	margin:0;
+	height: 190px;
+	width:110px;
+	padding:80px 20px 0 20px;
+}
+
+#loginForm .left {
+	float: left;
+	padding:12px 0 0 66px;
+}
+#loginForm {
+	width: 540px;
+	height: 270px; 
+	margin : 25px auto 25px auto;
+	border: 5px solid #999;
+}
+
+#loginForm div {
+	clear: right;
+}
+#loginForm div {
+	margin-top:15px;
+}
+#loginForm h6 {
+	font-size: 24px;
+	color: #767676;
+	margin-bottom: 5px;
+}
+
+#loginForm dl {
+	line-height: 30px;
+}
+
+#loginForm dl dt {
+	color: #767676;
+	font-size: 25px;
+}
+
+#loginForm dl dd input {
+	width: 241px;
+	border: 2px solid #ccc;
+	height: 26px;
+	text-indent: 3px;
+	line-height: 26px;
+}
+
+#loginForm input.login {
+	border: 0;
+	background: #f05332;
+	padding-left: 15px;
+	padding-right: 15px;
+	height: 25px;
+	color: #fff;
+	font-weight: bold;
+	border-top-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	cursor: pointer;
+	margin-left: 251px;
+	margin-top: 19px;
+}
+
+#loginForm input.login:hover {
+	background: #c1401a;
+}

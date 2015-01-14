@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script type="text/javascript" src="../getResource?path=js/jauth.js"></script>
+<link type="text/css" rel="stylesheet" href="../getResource?path=css/jauth.css" />
+</head>
+<body>
+	<h2>CONTROLLER DETAIL</h2>
+	<hr>
+	<form name="<#if controller??>update<#else>save</#if>" action="<#if controller??>update<#else>save</#if>" method="post">
+		<table class="data_table">
+			<tr>
+				<td width="150" class="tr_title">ControllerId</td>
+				<td width="250"><input type="text" name="controllerId" value="${(controller.controllerId)!0}" readonly="true" /></td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">Mapping</td>
+				<td width="250"><input type="text" name="mapping" value="${(controller.mapping)!''}" /></td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">ModuleName</td>
+				<td width="250"><input type="text" name="moduleName" value="${(controller.moduleName)!''}" /></td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">Application</td>
+				<td width="250">
+					<select name="applicationId">
+						<option value="0">Null</option>
+						<#if controller??>
+							<#list apps as app>
+								<#if controller.application?? && controller.application.applicationId == app.applicationId>
+									<option value="${app.applicationId}" selected>${app.applicationName}</option>
+								<#else>
+									<option value="${app.applicationId}">${app.applicationName}</option>
+								</#if>
+							</#list>
+						<#else>
+							<#if apps??>
+								<#list apps as app>
+									<option value="${app.applicationId}">${app.applicationName}</option>
+								</#list>
+							</#if>
+						</#if>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">Business</td>
+				<td width="250">
+					<select name="business">
+						<#if controller??>
+							<#if controller.business == 'Y'>
+								<option value="Y" selected>Y</option>
+								<option value="N">N</option>
+							<#else>
+								<option value="Y">Y</option>
+								<option value="N" selected>N</option>
+							</#if>
+						<#else>
+							<option value="Y" selected>Y</option>
+							<option value="N">N</option>
+						</#if>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">Activate</td>
+				<td width="250">
+					<select name="activate">
+						<#if controller??>
+							<#if controller.activate == 'Y'>
+								<option value="Y" selected>Y</option>
+								<option value="N">N</option>
+							<#else>
+								<option value="Y">Y</option>
+								<option value="N" selected>N</option>
+							</#if>
+						<#else>
+							<option value="Y" selected>Y</option>
+							<option value="N">N</option>
+						</#if>
+					</select>
+				</td>
+			</tr>
+			<#if controller??>
+				<tr>
+					<td width="150">Operations</td>
+					<td width="250">
+						<#list controller.operations as operation>
+							${operation.name} 
+						</#list>
+						<a href="../operation/view?controllerId=${controller.controllerId}">ADD or UPDATE</a> 
+					</td>
+				</tr>
+			</#if>
+			<tr>
+				<td width="200" class="tr_title">&nbsp;</td>
+				<td width="250"><input type="submit" value="Commit" />&nbsp;<input type="reset" value="Reset" />&nbsp;<input type="button" value="Cancel" onClick="javascript:history.go(-1)" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

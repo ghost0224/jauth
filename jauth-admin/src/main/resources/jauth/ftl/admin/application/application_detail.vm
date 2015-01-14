@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script type="text/javascript" src="../getResource?path=js/jauth.js"></script>
+<link type="text/css" rel="stylesheet" href="../getResource?path=css/jauth.css" />
+</head>
+<body>
+	<h2>APPLICATION DETAIL</h2>
+	<hr>
+	<form name="<#if app??>update<#else>save</#if>" action="<#if app??>update<#else>save</#if>" method="post">
+		<table class="data_table">
+			<tr>
+				<td width="150" class="tr_title">ApplicationId</td>
+				<td width="250"><input type="text" name="applicationId" value="${(app.applicationId)!0}" readonly="true" /></td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">Name</td>
+				<td width="250"><input type="text" name="applicationName" value="${(app.applicationName)!''}" /></td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">Mapping</td>
+				<td width="250"><input type="text" name="mapping" value="${(app.mapping)!''}" /></td>
+			</tr>
+			<tr>
+				<td width="200" class="tr_title">&nbsp;</td>
+				<td width="250"><input type="submit" value="Commit" />&nbsp;<input type="reset" value="Reset" />&nbsp;<input type="button" value="Cancel" onClick="javascript:history.go(-1)" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

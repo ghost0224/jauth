@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.security.jauth.core.dao.UserGroupDao">
+
+	<cache eviction="LRU" flushInterval="600000" readOnly="true" size="30"/>
+
+	<sql id="fullColumns">
+	    USER_ID,
+		GROUP_ID,
+		PRIORITY
+	</sql>
+	
+	<sql id="fullColumnsWithAlias">
+	    UG.USER_ID AS UG_USER_ID,
+		UG.GROUP_ID AS UG_GROUP_ID,
+		UG.PRIORITY AS UG_PRIORITY
+	</sql>
+
+	<resultMap type="com.hp.security.jauth.core.model.UserGroup" id="UserGroupMap" >
+		<result property="priority" column="UG_PRIORITY" />
+		<association property="user" column="UG_USER_ID" javaType="com.hp.security.jauth.core.model.AssociateUser" select="com.hp.security.jauth.core.dao.AssociateUserDao.findById"></association>
+		<association property="group" column="UG_GROUP_ID" javaType="com.hp.security.jauth.core.model.Group" select="com.hp.security.jauth.core.dao.GroupDao.findById"></association>
+	</resultMap>
+	
+	<select id="findByUserId" resultMap="UserGroupMap" useCache="true">
+		SELECT
+			<include refid="fullColumnsWithAlias" />
+		FROM
+			ATH_GRP G,
+			ATH_USR_GRP UG
+		WHERE
+			G.GROUP_ID = UG.GROUP_ID
+		AND UG.USER_ID = #{value}
+		ORDER BY UG_PRIORITY DESC
+	</select>
+	
+	<select id="findByGroupId" resultMap="UserGroupMap" useCache="true">
+		SELECT
+			<include refid="fullColumnsWithAlias" />
+		FROM
+			ATH_GRP G,
+			ATH_USR_GRP UG
+		WHERE
+			G.GROUP_ID = UG.GROUP_ID
+		AND UG.GROUP_ID = #{value}
+		ORDER BY UG_PRIORITY DESC
+	</select>
+	
+	<insert id="save" parameterType="com.hp.security.jauth.core.model.UserGroup">
+		INSERT INTO
+			ATH_USR_GRP
+			(<include refid="fullColumns" />)
+		VALUES(
+				#{user.associateUserId, jdbcType=NUMERIC},
+				#{group.groupId, jdbcType=NUMERIC},
+				#{priority, jdbcType=NUMERIC}
+			)
+	</insert>
+	
+	<delete id="deleteByGroupId" parameterType="long">
+		DELETE FROM
+			ATH_USR_GRP
+		WHERE
+			GROUP_ID = #{value}
+	</delete>
+	
+	<delete id="deleteByUserId" parameterType="long">
+		DELETE FROM
+			ATH_USR_GRP
+		WHERE
+			USER_ID = #{value}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script type="text/javascript" src="../getResource?path=js/jauth.js"></script>
+<link type="text/css" rel="stylesheet" href="../getResource?path=css/jauth.css" />
+</head>
+<body>
+	<h2>OPERATIONS LIST of CONTROLLER: ${controller.moduleName}</h2>
+	<hr>
+	<a href="detail?controllerId=${controller.controllerId}">ADD</a> 
+	<table class="data_table">
+		<tr class="tr_title">
+			<td width="200">OperationId</td>
+			<td width="200">Name</td>
+			<td width="200">Menu</td>
+		</tr>
+		<#if operations??>
+			<#list operations as operation>
+		<tr>
+			<td>${operation.operationId}</td>
+			<td>${operation.name}</td>
+			<td>
+				<a href="detail?controllerId=${controller.controllerId}&operationId=${operation.operationId}">UPDATE</a>
+				<#if operation.operationId gt 0> 
+				<a href="delete?controllerId=${controller.controllerId}&operationId=${operation.operationId}" onclick="return deleteConfirm()">DELETE</a>
+				</#if>
+			</td>
+		</tr>
+			</#list>
+		</#if>
+	</table>
+</body>
+</html>

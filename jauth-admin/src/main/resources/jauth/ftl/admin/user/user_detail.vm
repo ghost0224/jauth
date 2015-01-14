@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script type="text/javascript" src="../getResource?path=js/jauth.js"></script>
+<link type="text/css" rel="stylesheet" href="../getResource?path=css/jauth.css" />
+</head>
+<body>
+	<h2>USER DETAIL</h2>
+	<hr>
+	<form name="<#if user??>update<#else>save</#if>" action="<#if user??>update<#else>save</#if>" method="post">
+		<table class="data_table">
+			<tr>
+				<td width="150" class="tr_title">AssociateUserId</td>
+				<td width="250"><input type="text" name="associateUserId" value="${(user.associateUserId)!0}" readonly="true" /></td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">BusinessUserId</td>
+				<td width="250"><input type="text" name="userId" value="${(user.userId)!''}" /></td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">Password</td>
+				<td width="250"><input type="hidden" name="prevPassword" value="${(user.password)!''}" /><input type="password" name="password" value="" /></td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">Email</td>
+				<td width="250"><input type="text" name="email" value="${(user.email)!''}" /></td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">Activate</td>
+				<td width="250">
+					<select name="activate">
+						<#if user??>
+							<#if user.activate == 'Y'>
+								<option value="Y" selected>Y</option>
+								<option value="N">N</option>
+							<#else>
+								<option value="Y">Y</option>
+								<option value="N" selected>N</option>
+							</#if>
+						<#else>
+							<option value="Y" selected>Y</option>
+							<option value="N">N</option>
+						</#if>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td width="150" class="tr_title">Groups</td>
+				<td width="250">
+					<#list groups as group>
+						<#assign flag = false>
+						<#assign pri = 0>
+						<#if user??>
+							<#list user.userGroups as ug>
+								<#if ug.group.groupId == group.groupId>
+									<#assign flag = true>
+									<#assign pri = ug.priority>
+									<#break>
+								</#if>
+							</#list>
+						</#if>
+						<#if flag>
+							<input type="checkbox" name="groups" value="${group.groupId}" checked onclick="changeStatus('priority[${group_index}]')" /> ${group.name} Priority: <input type="text" name="priority" id="priority[${group_index}]" maxlength="2" size="5" value="${pri}" /><br/>
+						<#else>
+							<input type="checkbox" name="groups" value="${group.groupId}" onclick="changeStatus('priority[${group_index}]')" /> ${group.name} Priority: <input type="text" name="priority" id="priority[${group_index}]" maxlength="2" size="5" value="0" disabled /><br/>
+						</#if>
+					</#list>
+				</td>
+			</tr>
+			<tr>
+				<td width="200" class="tr_title">&nbsp;</td>
+				<td width="250"><input type="submit" value="Commit" />&nbsp;<input type="reset" value="Reset" />&nbsp;<input type="button" value="Cancel" onClick="javascript:history.go(-1)" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

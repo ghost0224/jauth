@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<title>Authentication & Authorization</title>
+		<script type="text/javascript" src="getResource?path=js/jauth.js"></script>
+		<link type="text/css" rel="stylesheet" href="getResource?path=css/jauth.css" />
+	</head>
+	<body>
+		<div id="box">
+			<div id="head">
+				<div id="title">Authentication & Authorization</div>
+				<div id="logo">
+					<img align="left" src="getResource?path=image/logo.png">
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div id="main">
+				<br/>
+				<br/>
+				<br/>
+				<#if error??>
+					<div style="color:red">${error}</div>
+				</#if>
+				<form name="login" action="loginProcess" method="post">
+					<table class="data_table">
+						<tr>
+							<td class="tr_title">
+								USER ID:
+							</td>
+							<td>
+								<input type="text" name="userId">
+							</td>
+						</tr>
+						<tr>
+							<td class="tr_title">
+								PASSWORD:
+							</td>
+							<td>
+								<input type="password" name="password">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="submit" name="Submit" />
+							</td>
+							<td>
+								<input type="reset" name="Reset" />
+							</td>
+						</tr>
+					<table>
+				</form>
+				<br/>
+				<br/>
+				<br/>
+				<div class="clear"></div>
+			</div>
+			<div id="foot" class="linkStyle">
+				<a href="mailto:yiqingh@hp.com">Feedback</a> | <a href="#">HP Restricted</a>
+				<p>&copy; Copyright 2013 Hewlett-Packard Development Company, L.P.</p>
+			</div>
+		</div>
+	</body>
+</html>

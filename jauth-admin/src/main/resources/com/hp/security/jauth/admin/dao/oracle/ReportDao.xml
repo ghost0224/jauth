@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.security.jauth.admin.dao.ReportDao">
+    
+    <cache eviction="LRU" flushInterval="7200000" readOnly="true" size="30"/>
+
+	<resultMap type="com.hp.security.jauth.admin.model.report.PieWithController" id="PieWithControllerMap">
+		<result property="moduleName" column="MODULE_NAME" />
+		<result property="amount" column="AMOUNT" />
+	</resultMap>
+	
+	<resultMap type="com.hp.security.jauth.admin.model.report.TrendLineWithAccess" id="TrendLineWithAccessMap">
+		<result property="moduleName" column="MODULE_NAME" />
+		<result property="amount" column="AMOUNT" />
+	</resultMap>
+	
+	<select id="pieWithController" parameterType="boolean" resultMap="PieWithControllerMap" useCache="true">
+		SELECT 
+			C.MODULE_NAME, 
+			AMOUNT 
+		FROM (
+			SELECT 
+				COUNT(LOG_ID) AMOUNT,
+				CONTROLLER 
+			FROM 
+				ATH_LOG 
+			GROUP BY 
+				CONTROLLER
+			) T, 
+			ATH_CTRLR C
+		WHERE
+			<if test="value">
+			BUSINESS = 'Y' AND
+			</if>
+    		T.CONTROLLER = C.MAPPING
+	</select>
+	
+	<select id="trendLineWithAccess" parameterType="boolean" resultMap="TrendLineWithAccessMap" useCache="true">
+		SELECT 
+			TO_CHAR(INSERT_DATE, 'YYYY-MM') AS MONTH, 
+			COUNT(INSERT_DATE) AS AMOUNT 
+		FROM
+			ATH_LOG
+		<if test="value">
+		 	L,
+            ATH_CTRLR C
+        WHERE
+            L.CONTROLLER = C.MAPPING
+            AND C.BUSINESS = 'Y'
+		</if>
+		GROUP BY
+			TO_CHAR(INSERT_DATE, 'YYYY-MM')
+		ORDER BY
+			MONTH
+	</select>
+	
+</mapper>

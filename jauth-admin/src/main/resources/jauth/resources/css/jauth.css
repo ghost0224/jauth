@@ -1,0 +1,166 @@
+body {
+	font-size: 12px;
+	color: #4F4F4F;
+	text-align: center;
+	margin: auto;
+	padding: 0px;
+}
+
+table {
+	text-align: center;
+	margin: auto;
+	padding: 0px;
+    word-break:break-all;
+    word-wrap:break-word;
+    border-color: #9F9F9F;
+}
+
+td {
+	padding:8px;
+	font-size: 14px;
+}
+
+.btn {
+	text-align:right;
+	padding-right: 150px;
+}
+
+.clear {
+	clear: both;
+	height: 0px;
+}
+
+#box {
+	width: 976px;
+	text-align: center;
+	margin:auto;
+	padding: 15px;
+	word-break:break-all;
+    word-wrap:break-word;
+}
+
+#head {
+	width: 100%;
+	height: auto;
+	padding: 0px 15px 5px 15px;
+	border-bottom: 1px solid #9F9F9F;
+}
+
+#title {
+	font-size: 30px;
+	font-weight: bolder;
+	float: left;
+	padding-top: 40px;
+ 	color: #AFAFAF;
+}
+
+#logo {
+	float: right;
+}
+
+#main {
+	width: 100%;
+	padding: 10px 15px 10px 15px;
+}
+
+#menu {
+	width: 150px;
+	float: left;
+	text-align: left;
+	margin: 0px 30px 0px 10px; 
+}
+
+ul {
+	padding: 0px;
+}
+
+li {
+	list-style: none;
+	font-size: 18px;
+}
+
+#content {
+	float: left;
+}
+
+#foot {
+	width:100%;
+	text-align: right;
+	font-size: 14px;
+	color: #AFAFAF;
+	margin-top: 15px;
+	padding: 0px 15px 0px 15px;
+}
+
+.data_table td {
+	border: 1px solid #999999;
+}
+
+.tr_title {
+	background-color: #3F3F3F;
+	color: #FFFFFF;
+	font-weight: bolder;
+}
+
+li A:LINK, li A:VISITED {
+	font-size: 18px;
+	font-weight: bolder;
+	color: #454545;
+	text-decoration: none;
+	display: block;
+	widows: 100%;
+	padding: 3px 30px 3px 5px;
+}
+
+li A:HOVER, li A:ACTIVE {
+	font-size: 18px;
+	font-weight: bolder;
+	color: #FFFFFF;
+	text-decoration: none;
+	display: block;
+	widows: 100%;
+	background-color: #0096D6;
+	padding: 3px 30px 3px 5px;
+}
+
+.linkStyle A:LINK, .linkStyle A:VISITED{
+	text-decoration: none;
+	color: #AFAFAF;
+	font-size: 14px;
+	display: inline;
+	padding: 0px;
+}
+
+.linkStyle A:HOVER, .linkStyle A:ACTIVE {
+	text-decoration: underline;
+	color: #0096D6;
+	font-size: 14px;
+	display: inline;
+	padding: 0px;
+	background-color: #FFFFFF;
+}
+
+A:LINK, A:VISITED {
+	font-size: 12px;
+	font-weight: bolder;
+	color: #0096D6;
+	text-decoration: none;
+	display: block;
+	widows: 60px;
+	height: 25px;
+	text-align: left;
+	padding: 7px 4px 2px 20px;
+}
+
+A:HOVER, A:ACTIVE {
+	font-size: 12px;
+	font-weight: bolder;
+	color: #FFFFFF;
+	text-decoration: none;
+	display: block;
+	widows: 60px;
+	height: 25px;
+	background-color: #0096D6;
+	text-align: left;
+	padding: 7px 4px 2px 20px;
+}

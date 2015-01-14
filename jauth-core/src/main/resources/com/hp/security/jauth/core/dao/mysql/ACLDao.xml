@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.security.jauth.core.dao.ACLDao">
+
+	<cache eviction="LRU" flushInterval="600000" readOnly="true" size="30"/>
+
+	<sql id="fullColumns">
+        PRINCIPAL_ID,
+        PRINCIPAL_TYPE,
+        CONTROLLER_ID,
+        ACL_STATE
+	</sql>
+	
+	<resultMap type="com.hp.security.jauth.core.model.ACL" id="ACLMap" >
+		<result property="principalId" column="PRINCIPAL_ID" />
+		<result property="principalType" column="PRINCIPAL_TYPE" />
+		<result property="controllerId" column="CONTROLLER_ID" />
+		<result property="aclState" column="ACL_STATE" />
+	</resultMap>
+	
+	<select id="findByPrincipal" resultMap="ACLMap">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_ACSS_CTRL_LST
+		WHERE
+			PRINCIPAL_ID = #{principalId}
+		AND PRINCIPAL_TYPE = #{principalType}
+	</select>
+	
+	<select id="findByController" resultMap="ACLMap">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_ACSS_CTRL_LST
+		WHERE
+			CONTROLLER_ID = #{value, jdbcType=NUMERIC}
+	</select>
+	
+	<select id="findByPrincipalAndController" resultMap="ACLMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_ACSS_CTRL_LST
+		WHERE
+			PRINCIPAL_ID = #{principalId}
+		AND PRINCIPAL_TYPE = #{principalType}
+		AND CONTROLLER_ID = #{controllerId}
+	</select>
+	
+	<select id="findDetailStatus" resultType="list">
+		${value}
+	</select>
+	
+	<update id="update" parameterType="com.hp.security.jauth.core.model.ACL">
+	    UPDATE 
+	    	ATH_ACSS_CTRL_LST 
+	    SET
+	    	ACL_STATE = #{aclState, jdbcType=NUMERIC}
+	    WHERE
+	    	PRINCIPAL_ID = #{principalId, jdbcType=NUMERIC}
+	    AND PRINCIPAL_TYPE = #{principalType, jdbcType=NUMERIC}
+	    AND CONTROLLER_ID = #{controllerId, jdbcType=NUMERIC}
+	</update>
+	
+	<insert id="save" parameterType="com.hp.security.jauth.core.model.ACL">
+		INSERT INTO
+			ATH_ACSS_CTRL_LST
+			(<include refid="fullColumns" />)
+		VALUES(
+				#{principalId, jdbcType=NUMERIC},
+				#{principalType, jdbcType=NUMERIC},
+				#{controllerId, jdbcType=NUMERIC},
+				#{aclState, jdbcType=NUMERIC}
+			)
+	</insert>
+	
+	<delete id="delete">
+	    DELETE FROM 
+	    	ATH_ACSS_CTRL_LST
+	    WHERE
+			PRINCIPAL_ID = #{principalId}
+		AND PRINCIPAL_TYPE = #{principalType}
+		AND CONTROLLER_ID = #{controllerId}
+	</delete>
+	
+	<delete id="deleteByPrincipal">
+	    DELETE FROM 
+	    	ATH_ACSS_CTRL_LST
+	    WHERE
+			PRINCIPAL_ID = #{principalId}
+		AND PRINCIPAL_TYPE = #{principalType}
+	</delete>
+	
+	<delete id="deleteByController" parameterType="long">
+	    DELETE FROM 
+	    	ATH_ACSS_CTRL_LST
+	    WHERE
+			CONTROLLER_ID = #{value, jdbcType=NUMERIC}
+	</delete>
+	
+</mapper>

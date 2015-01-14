@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.security.jauth.core.dao.ApplicationDao">
+
+	<cache eviction="LRU" flushInterval="600000" readOnly="true" size="30"/>
+
+	<sql id="fullColumns">
+		APP_ID,
+		APP_NAME,
+		MAPPING
+	</sql>
+
+	<resultMap type="com.hp.security.jauth.core.model.Application" id="ApplicationMap" >
+		<result property="applicationId" column="APP_ID" />
+		<result property="applicationName" column="APP_NAME" />
+		<result property="mapping" column="MAPPING" />
+	</resultMap>
+	
+	<select id="findById" parameterType="long" resultMap="ApplicationMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_APP
+		WHERE
+			APP_ID = #{value}
+	</select>
+	
+	<select id="findByMapping" parameterType="string" resultMap="ApplicationMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_APP
+		WHERE
+			MAPPING = #{value}
+	</select>
+	
+	<select id="findAll" resultMap="ApplicationMap">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_APP
+		ORDER BY
+			APP_ID
+	</select>
+	
+	<insert id="save" parameterType="com.hp.security.jauth.core.model.Application">
+		<selectKey keyProperty="applicationId" resultType="java.lang.Long" order="BEFORE">
+			SELECT ATH_APP_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO
+			ATH_APP
+			(<include refid="fullColumns" />)
+		VALUES(
+				#{applicationId, jdbcType=NUMERIC},
+				#{applicationName, jdbcType=VARCHAR},
+				#{mapping, jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<update id="update" parameterType="com.hp.security.jauth.core.model.Application">
+		UPDATE
+			ATH_APP
+		SET
+			APP_NAME = #{applicationName, jdbcType=VARCHAR},
+			MAPPING = #{mapping, jdbcType=VARCHAR}
+		WHERE
+			APP_ID = #{applicationId, jdbcType=NUMERIC}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+	    DELETE FROM
+	    	ATH_APP
+	    WHERE
+			APP_ID = #{applicationId, jdbcType=NUMERIC}
+	</delete>
+	
+</mapper>

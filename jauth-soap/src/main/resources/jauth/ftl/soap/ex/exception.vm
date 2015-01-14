@@ -1,0 +1,9 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Body>
+      <soap:Fault>
+         <faultcode>${code?if_exists}</faultcode>
+         <faultstring>${ex.message?if_exists}</faultstring>
+         <faultcause>${ex.cause?if_exists}</faultcause>
+      </soap:Fault>
+   </soap:Body>
+</soap:Envelope>

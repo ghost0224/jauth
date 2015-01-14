@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS `ath_log`;
+DROP TABLE IF EXISTS `ath_cnfg`;
+DROP TABLE IF EXISTS `ath_acss_ctrl_lst`;
+DROP TABLE IF EXISTS `ath_usr_grp`;
+DROP TABLE IF EXISTS `ath_assc_usr`;
+DROP TABLE IF EXISTS `ath_grp_rol`;
+DROP TABLE IF EXISTS `ath_grp`;
+DROP TABLE IF EXISTS `ath_rol`;
+DROP TABLE IF EXISTS `ath_oprn`;
+DROP TABLE IF EXISTS `ath_ctrlr`;
+DROP TABLE IF EXISTS `ath_app`;

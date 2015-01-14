@@ -1,0 +1,91 @@
+I. Configuration
+	1. run jauth-database.sql in target database(Oracle/Mysql), you can change databaseType in jauth.properties.
+	2. add oralce or mysql driver in pom file. (you can copy it from jauth/pom.xml)
+	3. add jauth-core in pom file.
+	4. add jauth-data-source.xml, jauth.properties(jauth-core/test/resources) under classpath.
+	5. add AuthFilter in web.xml: (make sure this filter is the first in web.xml)
+		<filter>
+			<filter-name>JAuthFilter</filter-name>
+			<filter-class>com.hp.security.jauth.core.filter.AuthFilter</filter-class>
+		</filter>
+		<filter-mapping>
+			<filter-name>JAuthFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		</filter-mapping>
+	5.1.for core service, add jauth-core-applicationContext.xml in web.xml:
+		  <context-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:/jauth-core-applicationContext.xml</param-value>
+		  </context-param>
+		  <listener>
+			<listener-class>
+				org.springframework.web.context.ContextLoaderListener
+			</listener-class>
+		  </listener>
+	5.2 for admin, add authMVC in web.xml:
+		  <context-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:/jauth-admin-applicationContext.xml</param-value>
+		  </context-param>
+		  <listener>
+			<listener-class>
+				org.springframework.web.context.ContextLoaderListener
+			</listener-class>
+		  </listener>
+		  <servlet>
+			<servlet-name>JAuthMVC</servlet-name>
+			<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+			<init-param>
+				<param-name>contextConfigLocation</param-name>
+				<param-value>classpath*:/jauth-dispatcher.xml</param-value>
+			</init-param>
+			<load-on-startup>1</load-on-startup>
+		  </servlet>
+		  <servlet-mapping>
+			<servlet-name>JAuthMVC</servlet-name>
+			<url-pattern>/jauth/*</url-pattern>
+		  </servlet-mapping>
+	 5.3 for soap, add jauth-soap-applicationContext.xml in web.xml & keep soapEnabled(in jauth.properties) is "Y":
+	 	 <context-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:/jauth-soap-applicationContext.xml</param-value>
+		  </context-param>
+		  <listener>
+			<listener-class>
+				org.springframework.web.context.ContextLoaderListener
+			</listener-class>
+		  </listener>
+
+	6. run admin page: localhost/app/jauth/login (AuthAdmin/admin888)
+		5.2 Config: for jauth configuration.
+		5.3 Application: jauth can support multi-system, at least add 1 app here.
+		5.4 Controller: add controller and operation information.
+		5.5 Role: Setup detail permission base on role.
+		5.6 Group: Assign role to groups.
+		5.7 User: Assign group to users.
+
+Notes: 	1. you can add and configure jauth in any kinds of your application's lifecycle.
+		2. if you have own user table, you should can the synchronization between your table and jauth user table.
+		3. different projects have different url style for same action(controller), jauth url rules can hanlde this.
+	
+II. JAuth URL Rule:
+	1. start with *.
+	2. use '*', '/' or '!' to keep the same style for true URL and start from your app-name, like '<>': localhost:8080/<app-name/testModule/testOperation.do> = '*/*/{authO}.do'
+	3. {authO} is to locate the operation place in the url.
+	4. in "Config", split by ',' for different rules
+	5. examples:
+	5.1 for SpringMVC app:
+		use default rule: */*/{authO}.do 
+		or more '*/',like: */*/*/{authO}.do 
+		or no extension,like: */*/{authO}, base on your URL.
+		
+	5.2 for Struts2 app:
+		*/*!{authO}.do 
+		or */*/*/*!{authO}
+		
+	5.3 for Struts1 app:
+		for common action: */*/{authO}.do, put the last section as its operation, the front sections will be its mapping.
+		for dispatch action: */*.do, use 'authO' as key to transfer operation, all sections will be its mapping.
+		
+	for Servlet app:
+		the same as Struts1 common action.

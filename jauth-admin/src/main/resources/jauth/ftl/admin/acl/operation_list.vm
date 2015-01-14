@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script type="text/javascript" src="../getResource?path=js/jauth.js"></script>
+<link type="text/css" rel="stylesheet" href="../getResource?path=css/jauth.css" />
+</head>
+<body>
+	<table border="0" width="300px">
+		<tr>
+			<td valign="top">
+				<form name="acl" method="post" action="saveOrUpdate">
+					<input type="hidden" name="principalId" value="${principalId}" />
+					<input type="hidden" name="principalType" value="${principalType}" />
+					<input type="hidden" name="controllerId" value="${controllerId}" />
+					<input type="hidden" name="operationSize" value="${operations?size}" />
+					<table class="data_table">
+						<tr>
+							<td class="tr_title" width="30px"><input type="checkbox" id="active" name="active" value="true" <#if acl??>checked</#if> /></td>
+							<td colspan="2" width="260px">Active</td>
+						</tr>
+						<#list operations as operation>
+						<tr>
+							<td class="tr_title" width="30px"><input type="checkbox" id="operations_${operation_index}" name="operations" value="${operation_index}" <#if acl?? && acl.getState(operation_index)>checked</#if> /></td>
+							<td width="33px">[${operation.operationId}]</td>
+							<td width="227px">${operation.name}</td>
+						</tr>
+						</#list>
+						<tr>
+							<td width="30px" style="padding:0px;"><a href="javascript:checkAll('operations')" style="padding: 10px;">all</a></td>
+							<td colspan="2" width="260px"><input type="submit" value="Commit" />&nbsp;<input type="reset" value="Reset" /></td>
+						</tr>
+					</table>
+				</form>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

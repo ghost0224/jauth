@@ -1,0 +1,145 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>AUTH SETUP</title>
+		<script type="text/javascript">
+			var inputIndex = 1;
+		</script>
+		<script type="text/javascript" src="getResource?path=js/jauth.js"></script>
+		<link type="text/css" rel="stylesheet" href="getResource?path=css/jauth.css" />
+	</head>
+	<body>
+		<div id="box">
+			<div id="head">
+				<div id="title">Authentication & Authorization</div>
+				<div id="logo">
+					<img align="left" src="getResource?path=image/logo.png">
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div id="main">
+				<form name="system" method="post" action="setup" onSubmit="return setupValidation()">
+					<input type="hidden" name="step" id="step" value="${step}">
+					<table border="1" cellpadding="0" cellspacing="0" width="768">
+						<tr>
+							<td align="center" colspan="2">
+								<h2>SETUP</h2>
+							</td>
+						</tr>
+						<#if step == 0>
+						<tr>
+							<td>Please select the MVC frameworks which work on the current application:</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" name="framework" value="Struts1" />Struts1 <input type="checkbox" name="framework" value="Struts2" />Struts2 <input type="checkbox" name="framework" value="SpringMVC" />SpringMVC <!--<input type="checkbox" name="framework" value="JSF" />JSF--> <input type="checkbox" name="framework" value="Servlet" />Servlet <input type="checkbox" name="framework" value="SOAP" />SOAP</td>
+						</tr>
+						<tr>
+							<td class="btn"><input type="submit" value=" Next " /></td>
+						</tr>
+						<#elseif step == 1>
+						<tr>
+							<td>The Rules which can locate the Operation Name in the URL:</td>
+						</tr>
+						<tr>
+							<td><input type="hidden" name="key" value="rules">
+								<ol id="holder">
+									<#list rules as rule>
+									<li>
+										<#if rule_index == 0>
+										<input type="text" name="value" value="${rule}" size="60" readonly />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="add" onClick="addInput()" value=" ADD " />
+										<#else>
+										<input type="text" name="value" value="${rule}" size="60" readonly />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										</#if>
+									</li>
+									</#list>
+								</ol>
+							</td>
+						</tr>
+						<tr>
+							<td class="btn"><input type="submit" value=" Next " /></td>
+						</tr>
+						<#elseif step == 2>
+						<tr>
+							<td>The Key of session which saving the Business User ID [AssociateUser.userId(String)] :</td>
+						</tr>
+						<tr>
+							<td><input type="hidden" name="key" value="sessionID"><input type="text" name="value" id="sessionID" value="${sessionID}"></td>
+						</tr>
+						<tr>
+							<td>The Key of session which saving the ACL information :</td>
+						</tr>
+						<tr>
+							<td><input type="hidden" name="key2" value="sessionACL"><input type="text" name="value2" id="sessionACL" value="${sessionACL}"></td>
+						</tr>
+						<tr>
+							<td class="btn"><input type="submit" value=" Next " /></td>
+						</tr>
+						<#elseif step == 3>
+						<tr>
+							<td>Would you like to check user information in session for each request? Like login validation: </td>
+						</tr>
+						<tr>
+							<td><input type="hidden" name="key" value="loginValidation"><input type="checkbox" name="value" value="Y" checked></td>
+						</tr>
+						<tr>
+							<td>Would you like to check user information when user request WSDL link?: </td>
+						</tr>
+						<tr>
+							<td><input type="hidden" name="key2" value="protectWSDL"><input type="checkbox" name="value2" value="Y"></td>
+						</tr>
+						<tr>
+							<td class="btn"><input type="submit" value=" Next " /></td>
+						</tr>
+						<#elseif step == 4>
+						<tr>
+							<td>Please select the Arithmetic for Authentication :</td>
+						</tr>
+						<tr>
+							<td><input type="hidden" name="key" value="arithmeticIndex">
+								<select name="value">
+									<#if arithmeticIndex == '0'>
+									<option value="0" selected>Merge Arithmetic</option>
+									<option value="1">Priority Arithmetic</option>
+									<#elseif arithmeticIndex == '1'>
+									<option value="0">Merge Arithmetic</option>
+									<option value="1" selected>Priority Arithmetic</option>
+									</#if>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="btn"><input type="submit" value=" Next " /></td>
+						</tr>
+						<#elseif step == 5>
+						<tr>
+							<td>Please type the Accessible Page which will not be filtered by 'AUTH' :</td>
+						</tr>
+						<tr>
+							<td><input type="hidden" name="key" value="accessiblePage">
+								<ol id="holder">
+									<#list pages as page>
+									<li>
+										<#if page_index == 0>
+										<input type="text" name="value" value="${page}" size="60" readonly />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="add" onClick="addInput()" value=" ADD " />
+										<#else>
+										<input type="text" name="value" value="${page}" size="60" readonly />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										</#if>
+									</li>
+									</#list>
+								</ol>
+							</td>
+						</tr>
+						<tr>
+							<td class="btn"><input type="submit" value=" Finish " /></td>
+						</tr>
+						</#if>
+					</table>
+				</form>
+			</div>
+			<div id="foot" class="linkStyle">
+				<a href="mailto:yiqingh@hp.com">Feedback</a> | <a href="#">HP Restricted</a>
+				<p>&copy; Copyright 2013 Hewlett-Packard Development Company, L.P.</p>
+			</div>
+		</div>
+	</body>
+</html>

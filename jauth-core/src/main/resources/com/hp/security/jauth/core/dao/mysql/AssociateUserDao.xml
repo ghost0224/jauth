@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hp.security.jauth.core.dao.AssociateUserDao">
+
+	<cache eviction="LRU" flushInterval="1800000" readOnly="true" size="30"/>
+
+	<sql id="fullColumns">
+	    ASSOCIATE_USER_ID,
+		USER_ID,
+		EMAIL,
+		PASSWORD,
+		ACTIVATE
+	</sql>
+
+	<resultMap type="com.hp.security.jauth.core.model.AssociateUser" id="AssociateUserMap" >
+	    <result property="associateUserId" column="ASSOCIATE_USER_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="email" column="EMAIL" />
+		<result property="password" column="PASSWORD" />
+		<result property="activate" column="ACTIVATE" />
+		<collection property="userGroups" ofType="com.hp.security.jauth.core.model.UserGroup" column="ASSOCIATE_USER_ID" select="com.hp.security.jauth.core.dao.UserGroupDao.findByUserId"></collection>
+	</resultMap>
+	
+	<select id="findById" parameterType="long" resultMap="AssociateUserMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_ASSC_USR
+		WHERE
+			ASSOCIATE_USER_ID = #{value}
+	</select>
+	
+	<select id="findByUserId" parameterType="string" resultMap="AssociateUserMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_ASSC_USR
+		WHERE
+			USER_ID = #{value}
+	</select>
+	
+	<select id="findByEmail" parameterType="string" resultMap="AssociateUserMap" useCache="true">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_ASSC_USR
+		WHERE
+			EMAIL = #{value}
+	</select>
+	
+	<select id="findAll" resultMap="AssociateUserMap">
+		SELECT
+			<include refid="fullColumns" />
+		FROM
+			ATH_ASSC_USR
+		ORDER BY
+			ASSOCIATE_USER_ID
+	</select>
+	
+	<insert id="save" parameterType="com.hp.security.jauth.core.model.AssociateUser">
+		<selectKey keyProperty="associateUserId" resultType="java.lang.Long" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+			ATH_ASSC_USR
+			(<include refid="fullColumns" />)
+		VALUES(
+				#{associateUserId, jdbcType=NUMERIC},
+				#{userId, jdbcType=VARCHAR},
+				#{email, jdbcType=VARCHAR},
+				#{password, jdbcType=VARCHAR},
+				#{activate, jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<update id="update" parameterType="com.hp.security.jauth.core.model.AssociateUser">
+	    UPDATE
+	    	ATH_ASSC_USR
+	    SET
+	    	USER_ID = #{userId, jdbcType=VARCHAR},
+	    	EMAIL = #{email, jdbcType=VARCHAR},
+	    	PASSWORD = #{password, jdbcType=VARCHAR},
+	    	ACTIVATE = #{activate, jdbcType=VARCHAR}
+	    WHERE
+	    	ASSOCIATE_USER_ID = #{associateUserId, jdbcType=NUMERIC}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+	    DELETE FROM
+	    	ATH_ASSC_USR
+	    WHERE
+	    	ASSOCIATE_USER_ID = #{value}
+	</delete>
+	
+</mapper>

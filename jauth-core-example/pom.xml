@@ -1,0 +1,180 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.hp.security</groupId>
+  <artifactId>jauth-core-example</artifactId>
+  <packaging>war</packaging>
+  <version>1.0.1-SNAPSHOT</version>
+  <name>jauth-core-example</name>
+  <description>jauth-core-example</description>
+  
+  <dependencies>
+  
+  	<dependency>
+		<groupId>com.hp.security</groupId>
+		<artifactId>jauth-core</artifactId>
+		<version>2.0.7</version>
+	</dependency>
+	
+<!-- 	<dependency> -->
+<!-- 		<groupId>com.oracle</groupId> -->
+<!-- 		<artifactId>jdbc5</artifactId> -->
+<!-- 		<version>11.2.0.3</version> -->
+<!-- 	</dependency> -->
+
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>5.1.30</version>
+	</dependency>
+  
+  	<!-- UT -->
+  	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.8.2</version>
+	</dependency>
+  
+ 	<!-- template engine -->
+  	<dependency>
+		<groupId>org.freemarker</groupId>
+		<artifactId>freemarker</artifactId>
+		<version>2.3.19</version>
+	</dependency>
+	
+	<!-- json-lib -->
+	<dependency>
+	  <groupId>net.sf.json-lib</groupId>
+	  <artifactId>json-lib</artifactId>
+	  <version>2.4</version>
+	  <classifier>jdk15</classifier>
+	</dependency>
+	
+	<!-- mvc -->
+	<dependency>
+		<groupId>org.apache.struts</groupId>
+		<artifactId>struts2-core</artifactId>
+		<version>2.3.4</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.struts</groupId>
+	    <artifactId>struts2-spring-plugin</artifactId>
+	    <version>2.3.4</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.struts</groupId>
+	    <artifactId>struts2-json-plugin</artifactId>
+	    <version>2.3.4</version>
+	</dependency>
+	
+	<!-- javaee -->
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>3.0.1</version>
+		<scope>provided</scope>
+	</dependency>
+	
+	<!-- spring -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<version>3.0.5.RELEASE</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-beans</artifactId>
+		<version>3.0.5.RELEASE</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>3.0.5.RELEASE</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>3.0.5.RELEASE</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>3.0.5.RELEASE</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+		<version>1.6.9</version>
+	</dependency>
+
+	<dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib-nodep</artifactId>
+		<version>2.2</version>
+	</dependency>
+	
+	<!-- slf4j -->
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-api</artifactId>
+	    <version>1.7.2</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-log4j12</artifactId>
+	    <version>1.7.2</version>
+	</dependency>
+	
+	<!-- log4j -->
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.17</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.atomikos</groupId>
+		<artifactId>transactions-jta</artifactId>
+		<version>3.8.0</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.atomikos</groupId>
+		<artifactId>transactions-jdbc</artifactId>
+		<version>3.8.0</version>
+	</dependency>
+	
+  </dependencies>
+  
+  <build>
+  	<plugins>
+  		<plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+        	<source>1.6</source>
+        	<target>1.6</target>
+        </configuration>
+      </plugin>
+  	</plugins>
+  </build>
+  
+</project>
