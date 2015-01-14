@@ -64,8 +64,8 @@ I. Configuration
 		5.6 Group: Assign role to groups.
 		5.7 User: Assign group to users.
 
-Notes: 	1. you can add and configure jauth in any kinds of your application's lifecycle.
-		2. if you have own user table, you should can the synchronization between your table and jauth user table.
+Notes: 	1. if your applicaiton already has a login page, please make sure the login user id is in session "USER_ID", and login,login process or static resources(like:css,js..) url is in "accessiblePage".
+		2. if you have own user table, you should keep the synchronization between your table and jauth user table.
 		3. different projects have different url style for same action(controller), jauth url rules can hanlde this.
 	
 II. JAuth URL Rule:
